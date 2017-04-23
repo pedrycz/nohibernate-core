@@ -18,6 +18,10 @@ public class NoHibernateBasicType implements UserType, ParameterizedType {
 
     private Class<?> classType = null;
 
+    private void setClassType(Class<?> classType) {
+        this.classType = classType;
+    }
+
     @Override
     public int[] sqlTypes() {
         return new int[]{Types.LONGVARCHAR};
@@ -40,8 +44,7 @@ public class NoHibernateBasicType implements UserType, ParameterizedType {
 
     @Override
     public Object nullSafeGet(ResultSet rs, String[] names, SessionImplementor session, Object owner) throws HibernateException, SQLException {
-        Object deserialized = NoHibernateUtils.customString2Object(rs.getString(names[0]));
-        return deserialized;
+        return classType.cast(NoHibernateUtils.customString2Object(rs.getString(names[0])));
     }
 
     @Override
@@ -53,9 +56,7 @@ public class NoHibernateBasicType implements UserType, ParameterizedType {
     @Override
     public Object deepCopy(Object value) throws HibernateException {
         if (value != null) {
-            String serialized = NoHibernateUtils.object2CustomString(value);
-            Object deserialized = NoHibernateUtils.customString2Object(serialized);
-            return deserialized;
+            return NoHibernateUtils.customString2Object(NoHibernateUtils.object2CustomString(value));
         } else {
             return null;
         }
@@ -83,10 +84,12 @@ public class NoHibernateBasicType implements UserType, ParameterizedType {
 
     @Override
     public void setParameterValues(Properties properties) {
+        String className = null;
         try {
-            classType = Class.forName(properties.getProperty("classType"));
+            className = properties.getProperty("classType");
+            setClassType(Class.forName(className));
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new RuntimeException("Class " + className + " does not exist");
         }
     }
 }
