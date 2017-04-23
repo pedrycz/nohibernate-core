@@ -21,8 +21,8 @@ public class NoHibernateUtils {
         String javaClass = o.getClass().getName();
         ObjectNode javaData = OBJECT_MAPPER.convertValue(o, ObjectNode.class);
         ObjectNode objectNode = OBJECT_MAPPER.createObjectNode();
-        objectNode.put(NoHibernate.FIELD_CLASS, javaClass);
-        objectNode.set(NoHibernate.FIELD_DATA, javaData);
+        objectNode.put(NoHibernate.Field.CLASS, javaClass);
+        objectNode.set(NoHibernate.Field.DATA, javaData);
         try {
             return OBJECT_MAPPER.writeValueAsString(objectNode);
         } catch (JsonProcessingException e) {
@@ -34,16 +34,16 @@ public class NoHibernateUtils {
         String javaClass = null;
         try {
             JsonNode jsonNode = OBJECT_MAPPER.readTree(s);
-            javaClass = jsonNode.get(NoHibernate.FIELD_CLASS).textValue();
+            javaClass = jsonNode.get(NoHibernate.Field.CLASS).textValue();
             if (javaClass == null || javaClass.equals("")) {
                 throw new IllegalArgumentException("String \"" + s + "\" has no \"" +
-                        NoHibernate.FIELD_CLASS + "\" parameter");
+                        NoHibernate.Field.CLASS + "\" parameter");
             }
-            return OBJECT_MAPPER.treeToValue(jsonNode.get(NoHibernate.FIELD_DATA), Class.forName(javaClass));
+            return OBJECT_MAPPER.treeToValue(jsonNode.get(NoHibernate.Field.DATA), Class.forName(javaClass));
         } catch (IOException e) {
             throw new IllegalArgumentException("Provided string \"" + s + "\" is not in JSON format");
         } catch (ClassNotFoundException e) {
-            throw new IllegalArgumentException("Provided \"" + NoHibernate.FIELD_CLASS + "\" parameter \"" +
+            throw new IllegalArgumentException("Provided \"" + NoHibernate.Field.CLASS + "\" parameter \"" +
                     javaClass + "\" cannot be found on classpath");
         }
     }

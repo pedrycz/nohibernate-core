@@ -2,9 +2,13 @@ package cz.pedry.nohibernate;
 
 public interface NoHibernate {
 
-    String TYPE_BASIC_STRING = "cz.pedry.nohibernate.types.TypeBasicString";
+    interface Type {
+        String BASIC = "cz.pedry.nohibernate.types.NoHibernateBasicType";
+    }
 
-    String FIELD_CLASS = "class";
-    String FIELD_DATA = "data";
+    interface Field {
+        String CLASS = "class";
+        String DATA = "data";
+    }
 
 }
