@@ -1,0 +1,16 @@
+apply plugin: "java"
+apply plugin: "eclipse"
+apply plugin: "idea"
+apply plugin: "maven"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile("org.hibernate:hibernate-core:$hibernateVersion")
+    compile("org.hibernate:hibernate-entitymanager:$hibernateVersion")
+    compile("com.fasterxml.jackson.core:jackson-databind:$jacksonVersion")
+
+    testCompile("junit:junit:$junitVersion")
+}
