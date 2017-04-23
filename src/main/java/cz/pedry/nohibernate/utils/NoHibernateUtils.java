@@ -39,7 +39,7 @@ public class NoHibernateUtils {
                 throw new IllegalArgumentException("String \"" + s + "\" has no \"" +
                         NoHibernate.Field.CLASS + "\" parameter");
             }
-            return OBJECT_MAPPER.treeToValue(jsonNode.get(NoHibernate.Field.DATA), Class.forName(javaClass));
+            return OBJECT_MAPPER.treeToValue(jsonNode.get(NoHibernate.Field.DATA), ClassLoader.getSystemClassLoader().loadClass(javaClass));
         } catch (IOException e) {
             throw new IllegalArgumentException("Provided string \"" + s + "\" is not in JSON format");
         } catch (ClassNotFoundException e) {

@@ -44,13 +44,12 @@ public class NoHibernateBasicType implements UserType, ParameterizedType {
 
     @Override
     public Object nullSafeGet(ResultSet rs, String[] names, SessionImplementor session, Object owner) throws HibernateException, SQLException {
-        return classType.cast(NoHibernateUtils.customString2Object(rs.getString(names[0])));
+        return NoHibernateUtils.customString2Object(rs.getString(names[0]));
     }
 
     @Override
     public void nullSafeSet(PreparedStatement st, Object value, int index, SessionImplementor session) throws HibernateException, SQLException {
-        String serialized = NoHibernateUtils.object2CustomString(value);
-        st.setString(index, serialized);
+        st.setString(index, NoHibernateUtils.object2CustomString(value));
     }
 
     @Override
