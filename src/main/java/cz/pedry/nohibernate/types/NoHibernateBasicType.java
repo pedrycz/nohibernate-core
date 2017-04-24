@@ -3,7 +3,6 @@ package cz.pedry.nohibernate.types;
 import cz.pedry.nohibernate.utils.NoHibernateUtils;
 import org.hibernate.HibernateException;
 import org.hibernate.engine.spi.SessionImplementor;
-import org.hibernate.usertype.ParameterizedType;
 import org.hibernate.usertype.UserType;
 
 import java.io.Serializable;
@@ -12,24 +11,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Objects;
-import java.util.Properties;
 
-public class NoHibernateBasicType implements UserType, ParameterizedType {
-
-    private Class<?> classType = null;
-
-    private void setClassType(Class<?> classType) {
-        this.classType = classType;
-    }
+public class NoHibernateBasicType implements UserType {
 
     @Override
     public int[] sqlTypes() {
-        return new int[]{Types.LONGVARCHAR};
+        return new int[Types.LONGNVARCHAR];
     }
 
     @Override
-    public Class<?> returnedClass() {
-        return classType;
+    public Class returnedClass() {
+        return Object.class;
     }
 
     @Override
@@ -81,14 +73,4 @@ public class NoHibernateBasicType implements UserType, ParameterizedType {
         return deepCopy(original);
     }
 
-    @Override
-    public void setParameterValues(Properties properties) {
-        String className = null;
-        try {
-            className = properties.getProperty("classType");
-            setClassType(Class.forName(className));
-        } catch (ClassNotFoundException e) {
-            throw new RuntimeException("Class " + className + " does not exist");
-        }
-    }
 }

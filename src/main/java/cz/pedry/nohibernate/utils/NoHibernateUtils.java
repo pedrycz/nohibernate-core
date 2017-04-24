@@ -12,6 +12,8 @@ public class NoHibernateUtils {
 
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
+    private static ClassLoader classLoader = NoHibernateUtils.class.getClassLoader();
+
     public NoHibernateUtils() { }
 
     public static String object2CustomString(Object o) {
@@ -31,6 +33,9 @@ public class NoHibernateUtils {
     }
 
     public static Object customString2Object(String s) {
+        if (classLoader == null) {
+            throw new NullPointerException("ClassLoader not provided");
+        }
         String javaClass = null;
         try {
             JsonNode jsonNode = OBJECT_MAPPER.readTree(s);
@@ -39,13 +44,21 @@ public class NoHibernateUtils {
                 throw new IllegalArgumentException("String \"" + s + "\" has no \"" +
                         NoHibernate.Field.CLASS + "\" parameter");
             }
-            return OBJECT_MAPPER.treeToValue(jsonNode.get(NoHibernate.Field.DATA), ClassLoader.getSystemClassLoader().loadClass(javaClass));
+            return OBJECT_MAPPER.treeToValue(jsonNode.get(NoHibernate.Field.DATA), classLoader.loadClass(javaClass));
         } catch (IOException e) {
             throw new IllegalArgumentException("Provided string \"" + s + "\" is not in JSON format");
         } catch (ClassNotFoundException e) {
             throw new IllegalArgumentException("Provided \"" + NoHibernate.Field.CLASS + "\" parameter \"" +
                     javaClass + "\" cannot be found on classpath");
         }
+    }
+
+    public static ClassLoader getClassLoader() {
+        return classLoader;
+    }
+
+    public static void setClassLoader(ClassLoader classLoader) {
+        NoHibernateUtils.classLoader = classLoader;
     }
 
 }
