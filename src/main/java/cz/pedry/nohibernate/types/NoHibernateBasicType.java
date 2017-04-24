@@ -16,7 +16,7 @@ public class NoHibernateBasicType implements UserType {
 
     @Override
     public int[] sqlTypes() {
-        return new int[Types.LONGNVARCHAR];
+        return new int[]{Types.LONGNVARCHAR};
     }
 
     @Override
