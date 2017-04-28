@@ -11,13 +11,13 @@ public class SerializationTest {
     public void simplePojoShouldBeSerializedProperly() throws Exception {
         Object circleObject = new Circle(0.0, 1.0, 2.0);
         String circleString = NoHibernateUtils.object2CustomString(circleObject);
-        String expectedString = "{\"class\":\"cz.pedry.nohibernate.model.Circle\",\"data\":{\"x\":0.0,\"y\":1.0,\"r\":2.0}}";
+        String expectedString = "{\"HEAD\":{\"JAVA_CLASS\":\"cz.pedry.nohibernate.model.Circle\"},\"BODY\":{\"x\":0.0,\"y\":1.0,\"r\":2.0}}";
         Assert.assertEquals(expectedString, circleString);
     }
 
     @Test
     public void simplePojoShouldBeDeserializedProperly() throws Exception {
-        String circleString = "{\"class\":\"cz.pedry.nohibernate.model.Circle\",\"data\":{\"x\":0.0,\"y\":1.0,\"r\":2.0}}";
+        String circleString = "{\"HEAD\":{\"JAVA_CLASS\":\"cz.pedry.nohibernate.model.Circle\"},\"BODY\":{\"x\":0.0,\"y\":1.0,\"r\":2.0}}";
         Object circleObject = NoHibernateUtils.customString2Object(circleString);
         Object expectedObject = new Circle(0.0, 1.0, 2.0);
         Assert.assertEquals(expectedObject.toString(), circleObject.toString());

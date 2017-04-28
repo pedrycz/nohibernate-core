@@ -1,5 +1,8 @@
 package cz.pedry.nohibernate;
 
+/**
+ * Most important string definitions used with NoHibernate framework
+ */
 public interface NoHibernate {
 
     interface Type {
@@ -7,8 +10,13 @@ public interface NoHibernate {
     }
 
     interface Field {
-        String CLASS = "class";
-        String DATA = "data";
+        String HEAD = "HEAD";
+        String BODY = "BODY";
+
+        interface Head {
+            String JAVA_CLASS = "JAVA_CLASS";
+        }
+
     }
 
 }

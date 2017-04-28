@@ -12,6 +12,9 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.Objects;
 
+/**
+ * Custom Hibernate UserType using NoHibernate utils to get/set objects
+ */
 public class NoHibernateBasicType implements UserType {
 
     @Override
