@@ -16,7 +16,7 @@ repositories {
 
 dependencies {
     ....
-    compile("com.github.nohibernate:nohibernate-core:0.1")
+    compile("com.github.ppedrycz:nohibernate-core:0.1")
 }
 ```
 
