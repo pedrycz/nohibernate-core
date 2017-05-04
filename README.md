@@ -21,7 +21,7 @@ dependencies {
 ```
 
 ### Maven setup
-```maven
+```xml
 <repositories>
     <repository>
         <id>jitpack.io</id>
@@ -43,7 +43,7 @@ dependencies {
 public class MyApplication {
     public static void main(String[] args) {
         
-        NoHibernateUtils.initialize();
+        NoHibernateUtils.setClassLoader(MyApplication.class.getClassLoader());
         
         /* rest of your code */
 

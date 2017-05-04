@@ -5,8 +5,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import cz.pedry.nohibernate.NoHibernate;
-import sun.reflect.CallerSensitive;
-import sun.reflect.Reflection;
 
 import java.io.IOException;
 
@@ -79,18 +77,10 @@ public final class NoHibernateUtils {
     }
 
     /**
-     * Initializes library with default class loader
-     */
-    @CallerSensitive
-    public static void initialize() {
-        initialize(Reflection.getCallerClass().getClassLoader());
-    }
-
-    /**
      * Initializes library with custom class loader
      * @param classLoader class loader that should be used to load classes by name
      */
-    public static void initialize(ClassLoader classLoader) {
+    public static void setClassLoader(ClassLoader classLoader) {
         NoHibernateUtils.classLoader = classLoader;
     }
 
