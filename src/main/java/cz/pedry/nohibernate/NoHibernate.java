@@ -16,7 +16,6 @@ public interface NoHibernate {
         interface Head {
             String JAVA_CLASS = "JAVA_CLASS";
         }
-
     }
 
 }
