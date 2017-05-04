@@ -3,7 +3,7 @@ NoHibernate
 
 NoHibernate provides mapping of Hibernate managed entities in non-relational way. It is especially useful for storing in database interfaces with many different child classes, which is almost impossible with pure Hibernate.
 
-[![](https://jitpack.io/v/nohibernate/nohibernate-core.svg)](https://jitpack.io/#nohibernate/nohibernate-core)
+[![](https://jitpack.io/v/ppedrycz/nohibernate-core.svg)](https://jitpack.io/#ppedrycz/nohibernate-core)
 
 ### Gradle setup
 ```gradle
