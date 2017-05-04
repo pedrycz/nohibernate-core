@@ -8,21 +8,47 @@ NoHibernate provides mapping of Hibernate managed entities in non-relational way
 ### Gradle setup
 ```gradle
 repositories {
-    ....
+    ...
     maven {
         url 'https://jitpack.io'
     }
 }
 
 dependencies {
-    ....
-    compile("com.github.ppedrycz:nohibernate-core:0.1")
+    ...
+    compile("com.github.ppedrycz:nohibernate-core:0.2")
 }
+```
+
+### Maven setup
+```maven
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+
+<dependencies>
+    <dependency>
+        <groupId>com.github.ppedrycz</groupId>
+        <artifactId>nohibernate-core</artifactId>
+        <version>0.2</version>
+    </dependency>
+</dependencies>
 ```
 
 ### Library initialization
 ```Java
-NoHibernateUtils.setClassLoader(MyApplication.class.getClassLoader());
+public class MyApplication {
+    public static void main(String[] args) {
+        
+        NoHibernateUtils.initialize();
+        
+        /* rest of your code */
+
+    }
+}
 ```
 
 ### Example usage
